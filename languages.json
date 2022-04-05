@@ -1,0 +1,13 @@
+{
+	"languageSets":
+	[
+		{
+			"language": "UA",
+			"play": "Грати"
+		},
+		{
+			"language": "EN",
+			"play": "Play"
+		}
+	]
+}
