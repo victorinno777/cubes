@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using GoogleMobileAds.Api;
 
 public class GlobalLogic : MonoBehaviour
 {
@@ -13,9 +14,17 @@ public class GlobalLogic : MonoBehaviour
 	float cashTime = 0;
 	Vector3 startPoint = new Vector3(0, 0.5f, -4.5f);
 	public bool pusher;
+	AdsPage adsPage;
+	
+	void Awake()
+	{
+		MobileAds.Initialize(initStatus => { });
+	}
 	
     void Start()
     {		
+		adsPage = (AdsPage) ScriptableObject.CreateInstance("AdsPage");
+	
 		pusherPanel = GameObject.Find("Canvas").transform.GetChild(1).gameObject;
 		text = GameObject.Find("Canvas").transform.GetChild(0).transform.GetChild(0).gameObject;
 		pusherToggle = GameObject.Find("Canvas").transform.GetChild(2).gameObject.GetComponent<Toggle>();
@@ -45,9 +54,8 @@ public class GlobalLogic : MonoBehaviour
 		if (cubeCount == 10)
 		{
 			cubeCount = 0;
-			Debug.Log("go");
-			AdsPage adsPage = (AdsPage) ScriptableObject.CreateInstance("AdsPage");
 			adsPage.ShowAd();
+			adsPage.OnEnable();
 		}
 		
 		StartCoroutine(RechargeTimer());
